@@ -1,8 +1,20 @@
 <template>
   <div>
+    <WordSearch />
     <nuxt/>
   </div>
 </template>
+
+<script>
+import WordSearch from '~/components/WordSearch.vue'
+
+export default {
+  components: {
+    WordSearch
+  }
+}
+</script>
+
 
 <style>
 html {
