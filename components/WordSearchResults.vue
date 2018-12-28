@@ -3,7 +3,6 @@
     <li
       v-for="(result, index) in results.searchResults"
       :key="index"
-      @click="selectWord(result.word)"
     ><nuxt-link :to="{ path: `${result.word}` }">{{ result.word }}</nuxt-link></li>
   </ul>
 </template>
@@ -15,11 +14,6 @@ export default {
     results: {
       type: Object,
       default: () => {}
-    }
-  },
-  methods: {
-    selectWord(word) {
-      this.$emit('select-word', word)
     }
   }
 }

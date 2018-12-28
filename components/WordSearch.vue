@@ -3,7 +3,6 @@
     <SearchInput v-model="query" />
     <SearchResults
       :results="results"
-      @select-word="selectWord"
     />
   </div>
 </template>
@@ -41,10 +40,7 @@ export default {
   methods: {
     debouncedQueryResults: debounce(function debouncedQueryResults(query) {
       this.$store.dispatch('fetchQueryResults', query)
-    }, 500),
-    selectWord(word) {
-      this.$store.dispatch('getWord', word)
-    }
+    }, 500)
   }
 }
 </script>
