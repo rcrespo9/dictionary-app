@@ -2,7 +2,7 @@
   <input
     :value="value"
     type="text"
-    @input="$emit('input', $event.target.value)"
+    @input="onInput"
   >
 </template>
 
@@ -13,6 +13,11 @@ export default {
     value: {
       type: String,
       default: ''
+    }
+  },
+  methods: {
+    onInput(e) {
+      this.$emit('input', e.target.value)
     }
   }
 }
