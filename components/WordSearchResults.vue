@@ -4,7 +4,7 @@
       v-for="(result, index) in results.searchResults"
       :key="index"
       @click="selectWord(result.word)"
-    >{{ result.word }}</li>
+    ><nuxt-link :to="{ path: `${result.word}` }">{{ result.word }}</nuxt-link></li>
   </ul>
 </template>
 
