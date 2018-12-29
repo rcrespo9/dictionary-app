@@ -2,10 +2,12 @@
   <div>
     <SearchInput
       ref="searchInput"
-      v-model="query" 
+      v-model="query"
+      @update-input-length="updateInputLen"
     />
     <SearchResults
       :results="results"
+      :is-input="searchInputLen"
     />
   </div>
 </template>
@@ -24,7 +26,8 @@ export default {
   data() {
     return {
       query: null,
-      searchInputEl: null
+      searchInputEl: null,
+      searchInputLen: 0
     }
   },
   computed: {
@@ -37,8 +40,7 @@ export default {
       this.debouncedQueryResults(newVal)
     },
     $route() {
-      this.searchInputEl.value = ``
-      this.$store.dispatch('clearResults')
+      this.resetInput()
     }
   },
   mounted() {
@@ -51,7 +53,14 @@ export default {
       } else {
         this.$store.dispatch('clearResults')
       }
-    }, 500)
+    }, 500),
+    updateInputLen() {
+      this.searchInputLen = this.searchInputEl.value.length
+    },
+    resetInput() {
+      this.searchInputEl.value = ``
+      this.searchInputLen = this.searchInputEl.value.length
+    }
   }
 }
 </script>
