@@ -25,7 +25,7 @@ const createStore = () => {
       }
     },
     actions: {
-      async fetchQueryResults({ commit, dispatch }, query) {
+      async fetchQueryResults({ commit }, query) {
         try {
           commit('setQueryResults', await WordnikApi.fetchQueryResults(query))
         } catch (error) {
