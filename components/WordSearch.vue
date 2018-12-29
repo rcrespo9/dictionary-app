@@ -1,6 +1,9 @@
 <template>
   <div>
-    <SearchInput v-model="query" />
+    <SearchInput
+      ref="searchInput"
+      v-model="query" 
+    />
     <SearchResults
       :results="results"
     />
@@ -20,7 +23,8 @@ export default {
   },
   data() {
     return {
-      query: null
+      query: null,
+      searchInputEl: null
     }
   },
   computed: {
@@ -35,7 +39,14 @@ export default {
       } else {
         this.$store.dispatch('clearResults')
       }
+    },
+    $route() {
+      this.searchInputEl.value = ``
+      this.$store.dispatch('clearResults')
     }
+  },
+  mounted() {
+    this.searchInputEl = this.$refs.searchInput.$el
   },
   methods: {
     debouncedQueryResults: debounce(function debouncedQueryResults(query) {

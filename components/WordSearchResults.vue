@@ -4,10 +4,7 @@
       v-for="(result, index) in results.searchResults"
       :key="index"
     >
-      <nuxt-link 
-        :to="{ path: `${result.word}` }"
-        @click.native="clearResults"
-      >
+      <nuxt-link :to="{ path: `${result.word}` }">
         {{ result.word }}
       </nuxt-link>
     </li>
@@ -21,11 +18,6 @@ export default {
     results: {
       type: Object,
       default: () => {}
-    }
-  },
-  methods: {
-    clearResults() {
-      this.$store.dispatch('clearResults')
     }
   }
 }
