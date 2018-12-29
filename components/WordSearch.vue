@@ -34,11 +34,7 @@ export default {
   },
   watch: {
     query(newVal) {
-      if (newVal) {
-        this.debouncedQueryResults(newVal)
-      } else {
-        this.$store.dispatch('clearResults')
-      }
+      this.debouncedQueryResults(newVal)
     },
     $route() {
       this.searchInputEl.value = ``
@@ -50,7 +46,11 @@ export default {
   },
   methods: {
     debouncedQueryResults: debounce(function debouncedQueryResults(query) {
-      this.$store.dispatch('fetchQueryResults', query)
+      if (query) {
+        this.$store.dispatch('fetchQueryResults', query)
+      } else {
+        this.$store.dispatch('clearResults')
+      }
     }, 500)
   }
 }
