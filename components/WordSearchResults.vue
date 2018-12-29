@@ -1,5 +1,5 @@
 <template>
-  <ul v-if="results && showResults">
+  <ul v-if="wordFound && showResults">
     <li
       v-for="(result, index) in results.searchResults"
       :key="index"
@@ -23,6 +23,10 @@ export default {
       type: Boolean,
       default: false,
       required: true
+    },
+    wordFound: {
+      type: Boolean,
+      default: false
     }
   }
 }

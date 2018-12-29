@@ -8,12 +8,14 @@
     <SearchResults
       :results="results"
       :show-results="showResults"
+      :word-found="wordFound"
     />
   </div>
 </template>
 
 <script>
 import { debounce } from 'lodash'
+import { mapGetters } from 'vuex'
 import SearchInput from './WordSearchInput.vue'
 import SearchResults from './WordSearchResults.vue'
 
@@ -34,7 +36,8 @@ export default {
   computed: {
     results() {
       return this.$store.state.results
-    }
+    },
+    ...mapGetters(['wordFound'])
   },
   watch: {
     query(newVal) {

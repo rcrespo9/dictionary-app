@@ -7,6 +7,15 @@ const createStore = () => {
       selectedWord: null,
       results: null
     },
+    getters: {
+      wordFound: state => {
+        const { results } = state
+
+        if (results) {
+          return !!results.totalResults
+        }
+      }
+    },
     mutations: {
       setSelectedWord(state, val) {
         state.selectedWord = val
@@ -18,13 +27,7 @@ const createStore = () => {
     actions: {
       async fetchQueryResults({ commit, dispatch }, query) {
         try {
-          const queryResults = await WordnikApi.fetchQueryResults(query)
-
-          if (queryResults.totalResults > 0) {
-            commit('setQueryResults', queryResults)
-          } else {
-            dispatch('clearResults')
-          }
+          commit('setQueryResults', await WordnikApi.fetchQueryResults(query))
         } catch (error) {
           throw new Error(error)
         }
