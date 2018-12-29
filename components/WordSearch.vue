@@ -7,7 +7,7 @@
     />
     <SearchResults
       :results="results"
-      :is-input="searchInputLen"
+      :show-results="showResults"
     />
   </div>
 </template>
@@ -27,7 +27,8 @@ export default {
     return {
       query: null,
       searchInputEl: null,
-      searchInputLen: 0
+      searchInputLen: 0,
+      showResults: false
     }
   },
   computed: {
@@ -41,6 +42,9 @@ export default {
     },
     $route() {
       this.resetInput()
+    },
+    searchInputLen(newVal) {
+      this.showResults = !!newVal
     }
   },
   mounted() {

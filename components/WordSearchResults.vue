@@ -1,5 +1,5 @@
 <template>
-  <ul v-if="results && isInput">
+  <ul v-if="results && showResults">
     <li
       v-for="(result, index) in results.searchResults"
       :key="index"
@@ -19,9 +19,10 @@ export default {
       type: Object,
       default: () => {}
     },
-    isInput: {
-      type: Number,
-      default: 0
+    showResults: {
+      type: Boolean,
+      default: false,
+      required: true
     }
   }
 }
