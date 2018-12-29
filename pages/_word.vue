@@ -11,12 +11,22 @@ export default {
   components: {
     WordDetail
   },
-  async asyncData({ params, store }) {
-    store.dispatch('getWord', params.word)
+  async asyncData({ params, store, error }) {
+    try {
+      store.dispatch('getWord', params.word)
+    } catch {
+      throw new Error(error)
+    }
   },
   beforeRouteEnter(to, from, next) {
+    const { word } = to.params
+
     next(vm => {
-      vm.$store.dispatch('getWord', to.params.word)
+      if (!vm.$store.state.results) {
+        vm.$store.dispatch('fetchQueryResults', word)
+      }
+
+      vm.$store.dispatch('getWord', word)
     })
   }
 }

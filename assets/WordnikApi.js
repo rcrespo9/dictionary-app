@@ -1,3 +1,5 @@
+require('isomorphic-fetch')
+
 const baseUrl = 'https://api.wordnik.com/v4'
 const apiKey = process.env.apiKey
 
@@ -7,6 +9,7 @@ export default {
       const response = await fetch(
         `${baseUrl}/words.json/search/${query}?allowRegex=false&caseSensitive=true&minCorpusCount=5&maxCorpusCount=-1&minDictionaryCount=1&maxDictionaryCount=-1&minLength=1&maxLength=-1&limit=10&api_key=${apiKey}`
       )
+
       const results = await response.json()
 
       return results
@@ -19,6 +22,7 @@ export default {
       const response = await fetch(
         `${baseUrl}/word.json/${word}?api_key=${apiKey}`
       )
+
       const wordObj = await response.json()
       const definitions = await this.getWordDefs(word)
       const audio = await this.getWordAudio(word)
@@ -38,6 +42,7 @@ export default {
       const response = await fetch(
         `${baseUrl}/word.json/${word}/examples?api_key=${apiKey}`
       )
+
       const examples = await response.json()
 
       return examples
@@ -50,6 +55,7 @@ export default {
       const response = await fetch(
         `${baseUrl}/word.json/${word}/definitions?api_key=${apiKey}`
       )
+
       const definitions = await response.json()
 
       return definitions
@@ -62,6 +68,7 @@ export default {
       const response = await fetch(
         `${baseUrl}/word.json/${word}/audio?api_key=${apiKey}`
       )
+
       const audio = await response.json()
 
       return audio
@@ -74,6 +81,7 @@ export default {
       const response = await fetch(
         `${baseUrl}/words.json/wordOfTheDay?api_key=${apiKey}`
       )
+
       const wordOfDay = await response.json()
       const wordAudio = await this.getWordAudio(wordOfDay.word)
 
