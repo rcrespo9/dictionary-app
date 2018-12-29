@@ -1,5 +1,6 @@
 <template>
-  <WordDetail :word="selectedWord.word" />
+  <!-- <WordDetail :word="wordObj.word" /> -->
+  <div/>
 </template>
 
 <script>
@@ -10,16 +11,13 @@ export default {
   components: {
     WordDetail
   },
-  computed: {
-    word() {
-      return this.$route.params.word
-    },
-    selectedWord() {
-      return this.$store.state.selectedWord
-    }
+  async asyncData({ params, store }) {
+    store.dispatch('getWord', params.word)
   },
-  created() {
-    this.$store.dispatch('getWord', this.word)
+  beforeRouteEnter(to, from, next) {
+    next(vm => {
+      vm.$store.dispatch('getWord', to.params.word)
+    })
   }
 }
 </script>
