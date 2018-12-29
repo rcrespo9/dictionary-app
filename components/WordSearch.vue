@@ -41,7 +41,7 @@ export default {
       this.debouncedQueryResults(newVal)
     },
     $route() {
-      this.resetInput()
+      this.resetSearch()
     },
     searchInputLen(newVal) {
       this.showResults = !!newVal
@@ -61,9 +61,9 @@ export default {
     updateInputLen() {
       this.searchInputLen = this.searchInputEl.value.length
     },
-    resetInput() {
+    resetSearch() {
       this.searchInputEl.value = ``
-      this.searchInputLen = this.searchInputEl.value.length
+      this.searchInputLen = 0
     }
   }
 }
