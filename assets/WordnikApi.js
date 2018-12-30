@@ -1,14 +1,12 @@
 require('isomorphic-fetch')
 
-const baseUrl = 'https://api.wordnik.com/v4'
-const apiKey = process.env.apiKey
+const baseUrl = '/api'
+const baseUrlSingleWord = `${baseUrl}/word`
 
 export default {
   async fetchQueryResults(query) {
     try {
-      const response = await fetch(
-        `${baseUrl}/words.json/search/${query}?allowRegex=false&caseSensitive=true&minCorpusCount=5&maxCorpusCount=-1&minDictionaryCount=1&maxDictionaryCount=-1&minLength=1&maxLength=-1&limit=10&api_key=${apiKey}`
-      )
+      const response = await fetch(`${baseUrl}/search?word=${query}`)
 
       const results = await response.json()
 
@@ -17,20 +15,38 @@ export default {
       throw new Error(error)
     }
   },
+  async getWordOfDay() {
+    try {
+      const response = await fetch(`${baseUrl}/wordOfDay`)
+
+      const wordOfDay = await response.json()
+      const wordAudio = await this.getWordAudio(wordOfDay.word)
+      const wordPronunciations = await this.getWordPronunciations(
+        wordOfDay.word
+      )
+
+      wordOfDay.audio = wordAudio
+      wordOfDay.pronunciations = wordPronunciations
+
+      return wordOfDay
+    } catch (error) {
+      throw new Error(error)
+    }
+  },
   async getWord(word) {
     try {
-      const response = await fetch(
-        `${baseUrl}/word.json/${word}?api_key=${apiKey}`
-      )
+      const response = await fetch(`${baseUrlSingleWord}/${word}`)
 
       const wordObj = await response.json()
       const definitions = await this.getWordDefs(word)
       const audio = await this.getWordAudio(word)
       const examples = await this.getWordExamples(word)
+      const pronunciations = await this.getWordPronunciations(word)
 
       wordObj.definitions = definitions
       wordObj.audio = audio
       wordObj.examples = examples.examples
+      wordObj.pronunciations = pronunciations
 
       return wordObj
     } catch (error) {
@@ -39,9 +55,7 @@ export default {
   },
   async getWordExamples(word) {
     try {
-      const response = await fetch(
-        `${baseUrl}/word.json/${word}/examples?api_key=${apiKey}`
-      )
+      const response = await fetch(`${baseUrlSingleWord}/${word}/examples`)
 
       const examples = await response.json()
 
@@ -52,9 +66,7 @@ export default {
   },
   async getWordDefs(word) {
     try {
-      const response = await fetch(
-        `${baseUrl}/word.json/${word}/definitions?api_key=${apiKey}`
-      )
+      const response = await fetch(`${baseUrlSingleWord}/${word}/definitions`)
 
       const definitions = await response.json()
 
@@ -65,9 +77,7 @@ export default {
   },
   async getWordAudio(word) {
     try {
-      const response = await fetch(
-        `${baseUrl}/word.json/${word}/audio?api_key=${apiKey}`
-      )
+      const response = await fetch(`${baseUrlSingleWord}/${word}/audio`)
 
       const audio = await response.json()
 
@@ -76,16 +86,15 @@ export default {
       throw new Error(error)
     }
   },
-  async getWordOfDay() {
+  async getWordPronunciations(word) {
     try {
-      const response = await fetch(`/api/wordOfDay`)
+      const response = await fetch(
+        `${baseUrlSingleWord}/${word}/pronunciations`
+      )
 
-      const wordOfDay = await response.json()
-      // const wordAudio = await this.getWordAudio(wordOfDay.word)
+      const pronunciations = await response.json()
 
-      // wordOfDay.audio = wordAudio
-
-      return wordOfDay
+      return pronunciations
     } catch (error) {
       throw new Error(error)
     }
