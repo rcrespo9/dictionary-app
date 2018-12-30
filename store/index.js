@@ -13,6 +13,8 @@ const createStore = () => {
 
         if (results) {
           return !!results.totalResults
+        } else {
+          return null
         }
       }
     },

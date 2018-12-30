@@ -37,10 +37,6 @@ module.exports = {
   */
   modules: ['@nuxtjs/dotenv'],
 
-  env: {
-    apiKey: process.env.WORDNIK_API_KEY
-  },
-
   /*
   ** Build configuration
   */

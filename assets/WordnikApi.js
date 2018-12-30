@@ -78,14 +78,12 @@ export default {
   },
   async getWordOfDay() {
     try {
-      const response = await fetch(
-        `${baseUrl}/words.json/wordOfTheDay?api_key=${apiKey}`
-      )
+      const response = await fetch(`/api/wordOfDay`)
 
       const wordOfDay = await response.json()
-      const wordAudio = await this.getWordAudio(wordOfDay.word)
+      // const wordAudio = await this.getWordAudio(wordOfDay.word)
 
-      wordOfDay.audio = wordAudio
+      // wordOfDay.audio = wordAudio
 
       return wordOfDay
     } catch (error) {
