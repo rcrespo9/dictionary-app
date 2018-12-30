@@ -20,10 +20,9 @@ export default {
       const response = await fetch(`${baseUrl}/wordOfDay`)
 
       const wordOfDay = await response.json()
-      const wordAudio = await this.getWordAudio(wordOfDay.word)
-      const wordPronunciations = await this.getWordPronunciations(
-        wordOfDay.word
-      )
+      const { word } = wordOfDay
+      const wordAudio = await this.getWordAudio(word)
+      const wordPronunciations = await this.getWordPronunciations(word)
 
       wordOfDay.audio = wordAudio
       wordOfDay.pronunciations = wordPronunciations
