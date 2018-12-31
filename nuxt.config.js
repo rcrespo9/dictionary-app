@@ -38,6 +38,13 @@ module.exports = {
   modules: ['@nuxtjs/axios'],
 
   /*
+  ** Axios
+  */
+  axios: {
+    prefix: '/api'
+  },
+
+  /*
   ** Build configuration
   */
   build: {

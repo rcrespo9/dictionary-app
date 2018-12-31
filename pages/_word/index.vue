@@ -11,10 +11,36 @@ export default {
   components: {
     WordDetail
   },
-  async asyncData({ params, store, error }) {
+  async asyncData({ $axios, params, store, error }) {
+    const baseUrl = '/word'
+    const { word } = params
+
     try {
-      store.dispatch('getWord', params.word)
-    } catch {
+      const wordRes = await $axios.get(`${baseUrl}/${word}`)
+      const wordObj = await wordRes.data
+
+      const wordAudioRes = await $axios.get(`${baseUrl}/${word}/audio`)
+      const wordAudio = await wordAudioRes.data
+      wordObj.audio = wordAudio
+
+      const wordPronunciationsRes = await $axios.get(
+        `${baseUrl}/${word}/pronunciations`
+      )
+      const wordPronunciations = await wordPronunciationsRes.data
+      wordObj.pronunciations = wordPronunciations
+
+      const wordExamplesRes = await $axios.get(`${baseUrl}/${word}/examples`)
+      const wordExamples = await wordExamplesRes.data
+      wordObj.examples = wordExamples.examples
+
+      const wordDefinitionsRes = await $axios.get(
+        `${baseUrl}/${word}/definitions`
+      )
+      const wordDefinitions = await wordDefinitionsRes.data
+      wordObj.definitions = wordDefinitions
+
+      store.dispatch('getWord', wordObj)
+    } catch (error) {
       throw new Error(error)
     }
   },
@@ -25,8 +51,6 @@ export default {
       if (!vm.$store.state.results) {
         vm.$store.dispatch('fetchQueryResults', word)
       }
-
-      vm.$store.dispatch('getWord', word)
     })
   }
 }

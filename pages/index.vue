@@ -6,19 +6,18 @@
 export default {
   async asyncData({ $axios, store }) {
     try {
-      const wordOfDayRes = await $axios.get(`/api/wordOfDay`)
+      const wordOfDayRes = await $axios.get(`/wordOfDay`)
       const wordOfDay = await wordOfDayRes.data
       const { word } = wordOfDay
 
-      const wordAudioRes = await $axios.get(`/api/word/${word}/audio`)
+      const wordAudioRes = await $axios.get(`/word/${word}/audio`)
       const wordAudio = await wordAudioRes.data
+      wordOfDay.audio = wordAudio
 
       const wordPronunciationsRes = await $axios.get(
-        `/api/word/${word}/pronunciations`
+        `/word/${word}/pronunciations`
       )
       const wordPronunciations = await wordPronunciationsRes.data
-
-      wordOfDay.audio = wordAudio
       wordOfDay.pronunciations = wordPronunciations
 
       store.dispatch('getWord', wordOfDay)
