@@ -36,14 +36,7 @@ const createStore = () => {
       },
       async getWord({ commit }, word) {
         try {
-          commit('setSelectedWord', await WordnikApi.getWord(word))
-        } catch (error) {
-          throw new Error(error)
-        }
-      },
-      async getWordOfDay({ commit }) {
-        try {
-          commit('setSelectedWord', await WordnikApi.getWordOfDay())
+          commit('setSelectedWord', word)
         } catch (error) {
           throw new Error(error)
         }

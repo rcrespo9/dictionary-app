@@ -1,9 +1,20 @@
+import axios from 'axios'
 require('isomorphic-fetch')
 
 const baseUrl = '/api'
 const baseUrlSingleWord = `${baseUrl}/word`
 
 export default {
+  async apiCall(callback) {
+    try {
+      const response = await callback
+      const { data } = response
+
+      return data
+    } catch (error) {
+      throw new Error(error)
+    }
+  },
   async fetchQueryResults(query) {
     try {
       const response = await fetch(`${baseUrl}/search?word=${query}`)
@@ -17,9 +28,9 @@ export default {
   },
   async getWordOfDay() {
     try {
-      const response = await fetch(`${baseUrl}/wordOfDay`)
+      const response = await axios.get(`${baseUrl}/wordOfDay`)
 
-      const wordOfDay = await response.json()
+      const wordOfDay = await response.data
       const { word } = wordOfDay
       const wordAudio = await this.getWordAudio(word)
       const wordPronunciations = await this.getWordPronunciations(word)
