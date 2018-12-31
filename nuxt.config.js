@@ -41,7 +41,8 @@ module.exports = {
   ** Axios
   */
   axios: {
-    prefix: '/api'
+    prefix: '/api',
+    proxy: true
   },
 
   /*
