@@ -1,5 +1,4 @@
 import Vuex from 'vuex'
-import WordnikApi from '~/assets/WordnikApi'
 const singleWordUrl = '/word'
 
 const createStore = () => {
@@ -30,7 +29,9 @@ const createStore = () => {
     actions: {
       async fetchQueryResults({ commit }, query) {
         try {
-          commit('setQueryResults', await WordnikApi.fetchQueryResults(query))
+          const response = await this.$axios.$get(`/search?word=${query}`)
+
+          commit('setQueryResults', response)
         } catch (error) {
           throw new Error(error)
         }
