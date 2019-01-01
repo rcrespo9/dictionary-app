@@ -10,6 +10,15 @@ export default {
     } catch (error) {
       throw new Error(error)
     }
+  },
+  beforeRouteEnter(to, from, next) {
+    const { word } = from.params
+
+    next(vm => {
+      if (word || vm.$store.state.results) {
+        vm.$store.dispatch('clearResults')
+      }
+    })
   }
 }
 </script>
