@@ -1,5 +1,10 @@
 <template>
   <div>
+    <nuxt-link 
+      to="/" 
+      exact>
+      Home
+    </nuxt-link>
     <WordSearch />
     <nuxt/>
   </div>
