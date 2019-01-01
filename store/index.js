@@ -32,7 +32,7 @@ const createStore = () => {
           throw new Error(error)
         }
       },
-      async getWordOfDay({ commit }) {
+      async getWordOfDay() {
         try {
           const wordOfDay = await this.$axios.$get(`/wordOfDay`)
 
@@ -41,7 +41,7 @@ const createStore = () => {
           throw new Error(error)
         }
       },
-      async getWord({ commit }, word) {
+      async getWord({}, word) {
         try {
           const wordObj = await this.$axios.$get(`${singleWordUrl}/${word}`)
 
