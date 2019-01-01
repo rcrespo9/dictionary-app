@@ -4,7 +4,6 @@ const singleWordUrl = '/word'
 const createStore = () => {
   return new Vuex.Store({
     state: {
-      selectedWord: null,
       results: null
     },
     getters: {
@@ -19,9 +18,6 @@ const createStore = () => {
       }
     },
     mutations: {
-      setSelectedWord(state, val) {
-        state.selectedWord = val
-      },
       setQueryResults(state, val) {
         state.results = val
       }
@@ -36,39 +32,20 @@ const createStore = () => {
           throw new Error(error)
         }
       },
-      async getWordOfDay({ dispatch, commit }) {
+      async getWordOfDay({ commit }) {
         try {
           const wordOfDay = await this.$axios.$get(`/wordOfDay`)
-          const { word } = wordOfDay
 
-          const audio = await dispatch('getWordAudio', wordOfDay.word)
-          wordOfDay.audio = audio
-
-          const pronunciations = await dispatch('getWordPronunciations', word)
-          wordOfDay.pronunciations = pronunciations
-
-          commit('setSelectedWord', wordOfDay)
+          return wordOfDay
         } catch (error) {
           throw new Error(error)
         }
       },
-      async getWord({ commit, dispatch }, word) {
+      async getWord({ commit }, word) {
         try {
           const wordObj = await this.$axios.$get(`${singleWordUrl}/${word}`)
 
-          const audio = await dispatch('getWordAudio', word)
-          wordObj.audio = audio
-
-          const examples = await dispatch('getWordExamples', word)
-          wordObj.examples = examples
-
-          const definitions = await dispatch('getWordDefinitions', word)
-          wordObj.definitions = definitions
-
-          const pronunciations = await dispatch('getWordPronunciations', word)
-          wordObj.pronunciations = pronunciations
-
-          commit('setSelectedWord', wordObj)
+          return wordObj
         } catch (error) {
           throw new Error(error)
         }

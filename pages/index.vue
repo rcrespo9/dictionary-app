@@ -6,7 +6,17 @@
 export default {
   async asyncData({ store }) {
     try {
-      await store.dispatch('getWordOfDay')
+      const wordOfDay = await store.dispatch('getWordOfDay')
+      const { word } = wordOfDay
+
+      const audio = await store.dispatch('getWordAudio', word)
+      const pronunciations = await store.dispatch('getWordPronunciations', word)
+
+      return {
+        wordOfDay,
+        audio,
+        pronunciations
+      }
     } catch (error) {
       throw new Error(error)
     }

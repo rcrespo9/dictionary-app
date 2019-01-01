@@ -15,7 +15,19 @@ export default {
     const { word } = params
 
     try {
-      await store.dispatch('getWord', word)
+      const wordObj = await store.dispatch('getWord', word)
+      const audio = await store.dispatch('getWordAudio', word)
+      const definitions = await store.dispatch('getWordDefinitions', word)
+      const examples = await store.dispatch('getWordExamples', word)
+      const pronunciations = await store.dispatch('getWordPronunciations', word)
+
+      return {
+        wordObj,
+        audio,
+        definitions,
+        examples,
+        pronunciations
+      }
     } catch (error) {
       throw new Error(error)
     }
