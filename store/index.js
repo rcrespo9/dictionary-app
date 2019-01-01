@@ -35,58 +35,79 @@ const createStore = () => {
           throw new Error(error)
         }
       },
-      async getWord({ commit }, word) {
+      async getWordOfDay({ dispatch, commit }) {
         try {
-          const response = await this.$axios.$get(`${singleWordUrl}/${word}`)
-          const wordObj = await response.data
+          const wordOfDay = await this.$axios.$get(`/wordOfDay`)
+          const { word } = wordOfDay
 
-          commit('setSelectedWord', word)
+          const audio = await dispatch('getWordAudio', wordOfDay.word)
+          wordOfDay.audio = audio
+
+          const pronunciations = await dispatch('getWordPronunciations', word)
+          wordOfDay.pronunciations = pronunciations
+
+          commit('setSelectedWord', wordOfDay)
         } catch (error) {
           throw new Error(error)
         }
       },
-      async getWordAudio(word) {
+      async getWord({ commit, dispatch }, word) {
         try {
-          const response = await this.$axios.$get(
-            `${singleWordUrl}/${word}/audio`
-          )
-          const audio = await response.data
+          const wordObj = await this.$axios.$get(`${singleWordUrl}/${word}`)
+
+          const audio = await dispatch('getWordAudio', word)
+          wordObj.audio = audio
+
+          const examples = await dispatch('getWordExamples', word)
+          wordObj.examples = examples
+
+          const definitions = await dispatch('getWordDefinitions', word)
+          wordObj.definitions = definitions
+
+          const pronunciations = await dispatch('getWordPronunciations', word)
+          wordObj.pronunciations = pronunciations
+
+          commit('setSelectedWord', wordObj)
+        } catch (error) {
+          throw new Error(error)
+        }
+      },
+      async getWordAudio({}, word) {
+        try {
+          const audio = await this.$axios.$get(`${singleWordUrl}/${word}/audio`)
 
           return audio
         } catch (error) {
           throw new Error(error)
         }
       },
-      async getWordExamples(word) {
+      async getWordExamples({}, word) {
         try {
-          const response = await this.$axios.$get(
+          const examples = await this.$axios.$get(
             `${singleWordUrl}/${word}/examples`
           )
-          const examples = await response.data
 
           return examples
         } catch (error) {
           throw new Error(error)
         }
       },
-      async getWordDefinitions(word) {
+      async getWordDefinitions({}, word) {
         try {
-          const response = await this.$axios.$get(
+          const definitions = await this.$axios.$get(
             `${singleWordUrl}/${word}/definitions`
           )
-          const definitions = await response.data
 
           return definitions
         } catch (error) {
           throw new Error(error)
         }
       },
-      async getWordPronunciations(word) {
+      async getWordPronunciations({}, word) {
         try {
-          const response = await this.$axios.$get(
+          const pronunciations = await this.$axios.$get(
             `${singleWordUrl}/${word}/pronunciations`
           )
-          const pronunciations = await response.data
 
           return pronunciations
         } catch (error) {
