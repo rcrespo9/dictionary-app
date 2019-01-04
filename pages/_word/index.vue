@@ -1,5 +1,11 @@
 <template>
-  <WordDetail :word="wordObj.word" />
+  <WordDetail 
+    :word="wordObj.word"
+    :definitions="definitions"
+    :audio="audio"
+    :examples="examples.examples"
+    :pronunciations="pronunciations"
+  />
 </template>
 
 <script>

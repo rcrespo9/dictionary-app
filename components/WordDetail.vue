@@ -1,5 +1,10 @@
 <template>
-  <h1>{{ word }}</h1>
+  <article>
+    <header>
+      <h1>{{ word }}</h1>
+    </header>
+    <h2>Definitions for <em>{{ word }}</em></h2>
+  </article>
 </template>
 
 <script>
@@ -9,6 +14,22 @@ export default {
     word: {
       type: String,
       required: true
+    },
+    definitions: {
+      type: Array,
+      required: true
+    },
+    audio: {
+      type: Array,
+      default: () => []
+    },
+    examples: {
+      type: Array,
+      default: () => []
+    },
+    pronunciations: {
+      type: Array,
+      default: () => []
     }
   }
 }

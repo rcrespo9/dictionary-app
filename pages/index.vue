@@ -1,5 +1,11 @@
 <template>
-  <WordDetail :word="wordOfDay.word" />
+  <WordDetail 
+    :word="wordOfDay.word" 
+    :definitions="wordOfDay.definitions"
+    :examples="wordOfDay.examples"
+    :audio="audio"
+    :pronunciations="pronunciations"
+  />
 </template>
 
 <script>
