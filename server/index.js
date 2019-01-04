@@ -83,7 +83,7 @@ async function start() {
     try {
       const word = req.params.word
       const response = await fetch(`
-        ${singleWord}/${word}/definitions?api_key=${apiKey}
+        ${singleWord}/${word}/definitions?includeRelated=true&includeRelated=true&includeTags=true&api_key=${apiKey}
       `)
       const definitions = await response.json()
 

@@ -12,11 +12,13 @@
       <p>{{ note }}</p>
     </div>
     <div v-if="definitions.length">
+      <p>{{ definitionGroups.length }}</p>
       <h2>Definitions for <em>{{ word }}</em></h2>
       <ol>
         <li 
           v-for="definition in definitions" 
-          :key="definition.sequence">{{ definition.text }}</li>
+          :key="definition.sequence" 
+          v-html="definition.text"/>
       </ol>
     </div>
     <div v-if="examples.length">
@@ -62,6 +64,32 @@ export default {
     note: {
       type: String,
       default: ''
+    }
+  },
+  computed: {
+    definitionGroups() {
+      if (!!!this.definitions.length) return false
+
+      const definitionGroups = []
+
+      this.definitions.forEach(definition => {
+        const defGroupObj = {}
+        const defGroupIndex = definitionGroups.findIndex(
+          defGroup => defGroup.partOfSpeech === definition.partOfSpeech
+        )
+
+        if (defGroupIndex >= 0) {
+          definitionGroups[defGroupIndex].definitions.push(definition.text)
+        } else {
+          defGroupObj.partOfSpeech = definition.partOfSpeech
+          defGroupObj.definitions = []
+          defGroupObj.definitions.push(definition.text)
+
+          definitionGroups.push(defGroupObj)
+        }
+      })
+
+      return definitionGroups
     }
   },
   methods: {
