@@ -5,6 +5,7 @@
     :examples="wordOfDay.examples"
     :audio="audio"
     :pronunciations="pronunciations"
+    :note="wordOfDay.note"
   />
 </template>
 

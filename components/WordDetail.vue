@@ -7,6 +7,10 @@
         v-if="audio.length" 
         @click="playAudio(audio[0].fileUrl)">Play Audio</button>
     </header>
+    <div v-if="note">
+      <h2>Note</h2>
+      <p>{{ note }}</p>
+    </div>
     <div v-if="definitions.length">
       <h2>Definitions for <em>{{ word }}</em></h2>
       <ol>
@@ -54,6 +58,10 @@ export default {
     pronunciations: {
       type: Array,
       default: () => []
+    },
+    note: {
+      type: String,
+      default: ''
     }
   },
   methods: {
