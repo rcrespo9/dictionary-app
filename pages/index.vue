@@ -1,9 +1,14 @@
 <template>
-  <div/>
+  <WordDetail :word="wordOfDay.word" />
 </template>
 
 <script>
+import WordDetail from '~/components/WordDetail'
+
 export default {
+  components: {
+    WordDetail
+  },
   async asyncData({ store }) {
     try {
       const wordOfDay = await store.dispatch('getWordOfDay')

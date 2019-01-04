@@ -1,6 +1,5 @@
 <template>
-  <!-- <WordDetail :word="wordObj.word" /> -->
-  <div/>
+  <WordDetail :word="wordObj.word" />
 </template>
 
 <script>
