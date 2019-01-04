@@ -1,5 +1,5 @@
 <template>
-  <h2>{{ word }}</h2>
+  <h1>{{ word }}</h1>
 </template>
 
 <script>
