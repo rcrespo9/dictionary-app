@@ -2,6 +2,7 @@
   <article>
     <header>
       <h1>{{ word }}</h1>
+      <p>{{ pronunciations[0].raw }}</p>
     </header>
     <h2>Definitions for <em>{{ word }}</em></h2>
     <ol>
