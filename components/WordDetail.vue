@@ -2,25 +2,32 @@
   <article>
     <header>
       <h1>{{ word }}</h1>
-      <p>{{ pronunciations[0].raw }}</p>
+      <p v-if="pronunciations.length">{{ pronunciations[0].raw }}</p>
+      <button 
+        v-if="audio.length" 
+        @click="playAudio(audio[0].fileUrl)">Play Audio</button>
     </header>
-    <h2>Definitions for <em>{{ word }}</em></h2>
-    <ol>
-      <li 
-        v-for="definition in definitions" 
-        :key="definition.sequence">{{ definition.text }}</li>
-    </ol>
-    <h2>Examples</h2>
-    <blockquote 
-      v-for="example in examples" 
-      :key="example.exampleId"
-      :cite="example.url"
-    >
-      <p>{{ example.text }}</p>
-      <footer>
-        <cite>{{ example.title }}</cite>
-      </footer>
-    </blockquote>
+    <div v-if="definitions.length">
+      <h2>Definitions for <em>{{ word }}</em></h2>
+      <ol>
+        <li 
+          v-for="definition in definitions" 
+          :key="definition.sequence">{{ definition.text }}</li>
+      </ol>
+    </div>
+    <div v-if="examples.length">
+      <h2>Examples</h2>
+      <blockquote 
+        v-for="example in examples" 
+        :key="example.exampleId"
+        :cite="example.url"
+      >
+        <p>{{ example.text }}</p>
+        <footer>
+          <cite>{{ example.title }}</cite>
+        </footer>
+      </blockquote>
+    </div>
   </article>
 </template>
 
@@ -34,7 +41,7 @@ export default {
     },
     definitions: {
       type: Array,
-      required: true
+      default: () => []
     },
     audio: {
       type: Array,
