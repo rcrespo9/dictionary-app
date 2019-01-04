@@ -4,6 +4,22 @@
       <h1>{{ word }}</h1>
     </header>
     <h2>Definitions for <em>{{ word }}</em></h2>
+    <ol>
+      <li 
+        v-for="definition in definitions" 
+        :key="definition.sequence">{{ definition.text }}</li>
+    </ol>
+    <h2>Examples</h2>
+    <blockquote 
+      v-for="example in examples" 
+      :key="example.exampleId"
+      :cite="example.url"
+    >
+      <p>{{ example.text }}</p>
+      <footer>
+        <cite>{{ example.title }}</cite>
+      </footer>
+    </blockquote>
   </article>
 </template>
 
@@ -30,6 +46,13 @@ export default {
     pronunciations: {
       type: Array,
       default: () => []
+    }
+  },
+  methods: {
+    playAudio(audioUrl) {
+      const audio = new Audio(audioUrl)
+
+      audio.play()
     }
   }
 }
