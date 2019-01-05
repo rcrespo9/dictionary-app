@@ -11,15 +11,19 @@
       <h2>Note</h2>
       <p>{{ note }}</p>
     </div>
-    <div v-if="definitions.length">
-      <p>{{ definitionGroups.length }}</p>
+    <div v-if="definitionGroups">
       <h2>Definitions for <em>{{ word }}</em></h2>
-      <ol>
-        <li 
-          v-for="definition in definitions" 
-          :key="definition.sequence" 
-          v-html="definition.text"/>
-      </ol>
+      <div 
+        v-for="(definitionGroup, index) in definitionGroups" 
+        :key="index">
+        <h3>{{ definitionGroup.partOfSpeech }}</h3>
+        <ol>
+          <li 
+            v-for="(definition, index) in definitionGroup.definitions" 
+            :key="index" 
+            v-html="definition"/>
+        </ol>
+      </div>
     </div>
     <div v-if="examples.length">
       <h2>Examples</h2>
