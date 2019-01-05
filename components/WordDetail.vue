@@ -2,7 +2,9 @@
   <article>
     <header>
       <h1>{{ word }}</h1>
-      <p v-if="pronunciations.length">{{ pronunciations[0].raw }}</p>
+      <p 
+        v-if="pronunciations.length" 
+        v-html="pronunciations[0].raw" />
       <button 
         v-if="audio.length" 
         @click="playAudio(audio[0].fileUrl)">Play Audio</button>
@@ -32,9 +34,9 @@
         :key="example.exampleId"
         :cite="example.url"
       >
-        <p>{{ example.text }}</p>
+        <p v-html="example.text" />
         <footer>
-          <cite>{{ example.title }}</cite>
+          <cite v-html="example.title" />
         </footer>
       </blockquote>
     </div>
