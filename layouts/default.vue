@@ -1,13 +1,17 @@
 <template>
-  <div>
+  <v-app>
     <nuxt-link 
       to="/" 
       exact>
       Home
     </nuxt-link>
     <WordSearch />
-    <nuxt/>
-  </div>
+    <v-content>
+      <v-container>
+        <nuxt/>
+      </v-container>
+    </v-content>
+  </v-app>
 </template>
 
 <script>
