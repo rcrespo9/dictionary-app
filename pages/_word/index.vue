@@ -36,15 +36,6 @@ export default {
     } catch (error) {
       throw new Error(error)
     }
-  },
-  beforeRouteEnter(to, from, next) {
-    const { word } = to.params
-
-    next(vm => {
-      if (!vm.$store.state.results) {
-        vm.$store.dispatch('fetchQueryResults', word)
-      }
-    })
   }
 }
 </script>
