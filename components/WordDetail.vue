@@ -1,24 +1,25 @@
 <template>
   <article>
     <header>
-      <h1>{{ word }}</h1>
-      <p 
+      <h1 class="display-3">{{ word }}</h1>
+      <p
         v-if="pronunciations.length" 
+        class="subheading" 
         v-html="pronunciations[0].raw" />
       <button 
         v-if="audio.length" 
-        @click="playAudio(audio[0].fileUrl)">Play Audio</button>
+        @click="playAudio(audio[0].fileUrl)">Play Audio</button> 
     </header>
     <div v-if="note">
-      <h2>Note</h2>
+      <h2 class="display-1">Note</h2>
       <p>{{ note }}</p>
     </div>
     <div v-if="definitionGroups">
-      <h2>Definitions for <em>{{ word }}</em></h2>
+      <h2 class="display-1">Definitions for <em>{{ word }}</em></h2>
       <div 
         v-for="(definitionGroup, index) in definitionGroups" 
         :key="index">
-        <h3>{{ definitionGroup.partOfSpeech }}</h3>
+        <h3 class="title">{{ definitionGroup.partOfSpeech }}</h3>
         <ol>
           <li 
             v-for="(definition, index) in definitionGroup.definitions" 
@@ -28,11 +29,12 @@
       </div>
     </div>
     <div v-if="examples.length">
-      <h2>Examples</h2>
+      <h2 class="display-1">Examples</h2>
       <blockquote 
         v-for="example in examples" 
         :key="example.exampleId"
         :cite="example.url"
+        class="blockquote"
       >
         <p v-html="example.text" />
         <footer>
