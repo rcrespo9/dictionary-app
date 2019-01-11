@@ -11,7 +11,11 @@ const createStore = () => {
         const { results } = state
 
         if (results) {
-          return results.searchResults.map(searchResult => searchResult.word)
+          if (!!results.totalResults) {
+            return results.searchResults.map(searchResult => searchResult.word)
+          } else {
+            return []
+          }
         } else {
           return []
         }
@@ -22,7 +26,7 @@ const createStore = () => {
         if (results) {
           return !!results.totalResults
         } else {
-          return null
+          return false
         }
       }
     },

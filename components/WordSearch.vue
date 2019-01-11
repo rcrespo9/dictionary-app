@@ -1,47 +1,26 @@
 <template>
-  <div>
-    <v-autocomplete
-      :search-input.sync="query"
-      :items="resultsWords"
-      placeholder="Start typing to find a word"
-      hide-no-data
-      flat
-      solo-inverted
-      prepend-icon="search"
-    />
-    <!-- <SearchInput
-      ref="searchInput"
-      v-model="query"
-      @update-input-length="updateInputLen"
-    />
-    <SearchResults
-      :results="results"
-      :show-results="showResults"
-      :word-found="wordFound"
-    /> -->
-  </div>
+  <v-autocomplete
+    v-model="selectedWord"
+    :search-input.sync="query"
+    :items="resultsWords"
+    placeholder="Start typing to find a word"
+    hide-no-data
+    flat
+    solo-inverted
+    append-icon="search"
+  />
 </template>
 
 <script>
 import { debounce } from 'lodash'
 import { mapGetters } from 'vuex'
-import SearchInput from './WordSearchInput.vue'
-import SearchResults from './WordSearchResults.vue'
 
 export default {
   name: 'WordSearch',
-  components: {
-    SearchInput,
-    SearchResults
-  },
-  data() {
-    return {
-      query: null,
-      searchInputEl: null,
-      searchInputLen: 0,
-      showResults: false
-    }
-  },
+  data: () => ({
+    query: null,
+    selectedWord: ''
+  }),
   computed: {
     ...mapGetters(['wordFound', 'resultsWords'])
   },
@@ -49,16 +28,13 @@ export default {
     query(newVal) {
       this.debouncedQueryResults(newVal)
     },
-    $route() {
-      this.resetSearch()
+    selectedWord(word) {
+      this.$router.push({ path: word })
     },
-    searchInputLen(newVal) {
-      this.showResults = !!newVal
+    $route() {
+      this.selectedWord = ''
     }
   },
-  // mounted() {
-  //   this.searchInputEl = this.$refs.searchInput.$el
-  // },
   methods: {
     debouncedQueryResults: debounce(function debouncedQueryResults(query) {
       if (query) {
@@ -66,14 +42,7 @@ export default {
       } else {
         this.$store.dispatch('clearResults')
       }
-    }, 500),
-    updateInputLen() {
-      this.searchInputLen = this.searchInputEl.value.length
-    },
-    resetSearch() {
-      this.searchInputEl.value = ``
-      this.searchInputLen = 0
-    }
+    }, 500)
   }
 }
 </script>
