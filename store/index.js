@@ -4,9 +4,18 @@ const singleWordUrl = '/word'
 const createStore = () => {
   return new Vuex.Store({
     state: {
-      results: []
+      results: null
     },
     getters: {
+      resultsWords: state => {
+        const { results } = state
+
+        if (results) {
+          return results.searchResults.map(searchResult => searchResult.word)
+        } else {
+          return []
+        }
+      },
       wordFound: state => {
         const { results } = state
 
@@ -93,7 +102,7 @@ const createStore = () => {
         }
       },
       clearResults({ commit }) {
-        commit('setQueryResults', [])
+        commit('setQueryResults', null)
       }
     }
   })

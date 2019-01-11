@@ -2,7 +2,7 @@
   <div>
     <v-autocomplete
       :search-input.sync="query"
-      :items="results"
+      :items="resultsWords"
       placeholder="Start typing to find a word"
       hide-no-data
       flat
@@ -43,10 +43,7 @@ export default {
     }
   },
   computed: {
-    results() {
-      return this.$store.state.results
-    },
-    ...mapGetters(['wordFound'])
+    ...mapGetters(['wordFound', 'resultsWords'])
   },
   watch: {
     query(newVal) {
