@@ -5,6 +5,7 @@
     :items="resultsWords"
     placeholder="Start typing to find a word"
     hide-no-data
+    hide-details
     flat
     solo-inverted
     append-icon="search"
