@@ -1,6 +1,9 @@
 <template>
   <v-app>
     <v-toolbar>
+      <v-icon
+        v-if="isNotHomePage"
+        @click="goHome">arrow_back</v-icon>
       <v-toolbar-title>Verbis</v-toolbar-title>
       <v-spacer/>
       <WordSearch />
@@ -19,6 +22,16 @@ import WordSearch from '~/components/WordSearch.vue'
 export default {
   components: {
     WordSearch
+  },
+  computed: {
+    isNotHomePage() {
+      return this.$route.path !== '/'
+    }
+  },
+  methods: {
+    goHome() {
+      this.$router.push('/')
+    }
   }
 }
 </script>
