@@ -2,10 +2,11 @@
   <v-app>
     <v-toolbar>
       <v-toolbar-title>Verbis</v-toolbar-title>
+      <v-spacer/>
+      <WordSearch />
     </v-toolbar>
     <v-content>
       <v-container>
-        <WordSearch />
         <nuxt/>
       </v-container>
     </v-content>

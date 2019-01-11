@@ -1,6 +1,15 @@
 <template>
   <div>
-    <SearchInput
+    <v-autocomplete
+      :search-input.sync="query"
+      :items="results"
+      placeholder="Start typing to find a word"
+      hide-no-data
+      flat
+      solo-inverted
+      prepend-icon="search"
+    />
+    <!-- <SearchInput
       ref="searchInput"
       v-model="query"
       @update-input-length="updateInputLen"
@@ -9,7 +18,7 @@
       :results="results"
       :show-results="showResults"
       :word-found="wordFound"
-    />
+    /> -->
   </div>
 </template>
 
@@ -50,9 +59,9 @@ export default {
       this.showResults = !!newVal
     }
   },
-  mounted() {
-    this.searchInputEl = this.$refs.searchInput.$el
-  },
+  // mounted() {
+  //   this.searchInputEl = this.$refs.searchInput.$el
+  // },
   methods: {
     debouncedQueryResults: debounce(function debouncedQueryResults(query) {
       if (query) {
