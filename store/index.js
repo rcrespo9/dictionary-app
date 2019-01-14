@@ -72,17 +72,6 @@ const createStore = () => {
           throw new Error(error)
         }
       },
-      async getWordExamples({}, word) {
-        try {
-          const examples = await this.$axios.$get(
-            `${singleWordUrl}/${word}/examples`
-          )
-
-          return examples
-        } catch (error) {
-          throw new Error(error)
-        }
-      },
       async getWordDefinitions({}, word) {
         try {
           const definitions = await this.$axios.$get(

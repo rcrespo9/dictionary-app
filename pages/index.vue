@@ -2,7 +2,6 @@
   <WordDetail 
     :word="wordOfDay.word" 
     :definitions="wordOfDay.definitions"
-    :examples="wordOfDay.examples"
     :audio="audio"
     :pronunciations="pronunciations"
     :note="wordOfDay.note"

@@ -28,20 +28,6 @@
         </ol>
       </div>
     </div>
-    <div v-if="examples.length">
-      <h2 class="display-1">Examples</h2>
-      <blockquote 
-        v-for="example in examples" 
-        :key="example.exampleId"
-        :cite="example.url"
-        class="blockquote"
-      >
-        <p v-html="example.text" />
-        <footer>
-          <cite v-html="example.title" />
-        </footer>
-      </blockquote>
-    </div>
   </article>
 </template>
 
@@ -58,10 +44,6 @@ export default {
       default: () => []
     },
     audio: {
-      type: Array,
-      default: () => []
-    },
-    examples: {
       type: Array,
       default: () => []
     },

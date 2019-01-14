@@ -3,7 +3,6 @@
     :word="wordObj.word"
     :definitions="definitions"
     :audio="audio"
-    :examples="examples.examples"
     :pronunciations="pronunciations"
   />
 </template>
@@ -23,14 +22,12 @@ export default {
       const wordObj = await store.dispatch('getWord', word)
       const audio = await store.dispatch('getWordAudio', word)
       const definitions = await store.dispatch('getWordDefinitions', word)
-      const examples = await store.dispatch('getWordExamples', word)
       const pronunciations = await store.dispatch('getWordPronunciations', word)
 
       return {
         wordObj,
         audio,
         definitions,
-        examples,
         pronunciations
       }
     } catch (error) {
